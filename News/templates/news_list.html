@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}News{% endif %}
+{% endblock %}
+{% block content %}
+    <div id="sidebar">
+    <h3>News</h3>
+    <ul>
+        <li {% if not category %}class="selected" {% endif %}>
+        <a href="{% url "News:list" %}">All</a>
+        </li>
+        {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+            <a href="{{ c.get_absolut_url }}">{{ c.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
+    <div id="main" class="product-list">
+    {% if not newsList %}
+    <h1>No news in  {{ category.name }} section</h1>
+    {% else %}
+    {% for news in newsList %}
+        <div class="item">
+        <a href="{{ news.get_absolut_url }}"><img src="{% if news.avatar %}{{ news.avatar.url }}{% endif %}" width="180" height="200"/></a>
+        <a href="{% url 'News:detail' slug=news.slug %}">{{ news.title|truncatechars:70}}</a>
+        </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {% if news.title %}{{ news.title }}{% else %}No title{% endif %}
+{% endblock %}
+{% block content %}
+    <div id="main" class="product-list">
+        <div class="title-news">
+        <img src="{% if news.avatar %}{{ news.avatar.url }}{% endif %}" />
+        <br>
+        <h2>Titlu:</h2><p>{{ news.title}}</p>
+        <br>
+        <h2>Continut:</h2>{{ news.content }}
+        </div>
+    <br>
+        <h6>Sursa:</h6><a href="{{ news.url }}">{{ news.url }}</a>
+    </div>
+{% endblock %}
